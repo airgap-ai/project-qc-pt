@@ -168,7 +168,8 @@
                     <span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">优先级: 低</span>
                 </div>
                 
-                <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-500 transition cursor-pointer mb-4">
+                <div class="upload-zone border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-500 transition cursor-pointer mb-4 relative" data-type="project">
+                    <input type="file" class="upload-input absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept=".pdf,.doc,.docx" data-type="project">
                     <svg class="mx-auto h-10 w-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                     </svg>
@@ -203,7 +204,8 @@
                     <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">优先级: 中</span>
                 </div>
                 
-                <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-500 transition cursor-pointer mb-4">
+                <div class="upload-zone border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-500 transition cursor-pointer mb-4 relative" data-type="bidding">
+                    <input type="file" class="upload-input absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept=".pdf,.doc,.docx" data-type="bidding">
                     <svg class="mx-auto h-10 w-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                     </svg>
@@ -254,7 +256,8 @@
                     <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">优先级: 高</span>
                 </div>
                 
-                <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-500 transition cursor-pointer mb-4">
+                <div class="upload-zone border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-500 transition cursor-pointer mb-4 relative" data-type="contract">
+                    <input type="file" class="upload-input absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept=".pdf,.doc,.docx" data-type="contract">
                     <svg class="mx-auto h-10 w-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                     </svg>
@@ -348,7 +351,110 @@
                 userMenuPanel.classList.add('hidden');
             }
         });
+
+        // 文件上传功能
+        initFileUpload();
     });
+
+    // 初始化文件上传功能
+    function initFileUpload() {
+        const uploadInputs = document.querySelectorAll('.upload-input');
+        const uploadZones = document.querySelectorAll('.upload-zone');
+
+        uploadInputs.forEach(input => {
+            // 文件选择事件
+            input.addEventListener('change', function(e) {
+                const files = e.target.files;
+                if (files.length > 0) {
+                    handleFileUpload(files[0], this.dataset.type);
+                }
+            });
+        });
+
+        uploadZones.forEach(zone => {
+            const input = zone.querySelector('.upload-input');
+
+            // 拖拽进入
+            zone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.classList.add('border-blue-500', 'bg-blue-50');
+            });
+
+            // 拖拽离开
+            zone.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.classList.remove('border-blue-500', 'bg-blue-50');
+            });
+
+            // 放置文件
+            zone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.classList.remove('border-blue-500', 'bg-blue-50');
+
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    const file = files[0];
+                    // 验证文件类型
+                    const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+                    const validExtensions = ['.pdf', '.doc', '.docx'];
+                    const fileExtension = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+
+                    if (validTypes.includes(file.type) || validExtensions.includes(fileExtension)) {
+                        handleFileUpload(file, this.dataset.type);
+                    } else {
+                        alert('请选择 PDF 或 Word 文档（.pdf, .doc, .docx）');
+                    }
+                }
+            });
+
+            // 点击上传区域触发文件选择
+            zone.addEventListener('click', function(e) {
+                if (e.target !== input) {
+                    input.click();
+                }
+            });
+        });
+    }
+
+    // 处理文件上传
+    function handleFileUpload(file, type) {
+        const typeNames = {
+            'project': '立项文件',
+            'bidding': '招标文件',
+            'contract': '合同文件'
+        };
+
+        console.log(`上传${typeNames[type]}:`, file.name, file.size);
+
+        // 这里可以添加实际的文件上传逻辑
+        // 例如：使用 FormData 和 fetch API 上传到服务器
+
+        // 显示上传成功提示
+        showUploadSuccess(file.name, typeNames[type]);
+    }
+
+    // 显示上传成功提示
+    function showUploadSuccess(fileName, typeName) {
+        // 创建提示元素
+        const toast = document.createElement('div');
+        toast.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 flex items-center space-x-2';
+        toast.innerHTML = `
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>${typeName} "${fileName}" 已选择</span>
+        `;
+
+        document.body.appendChild(toast);
+
+        // 3秒后自动移除
+        setTimeout(() => {
+            toast.remove();
+        }, 3000);
+    }
     </script>
 </body>
 </html>
