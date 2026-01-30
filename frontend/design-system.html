@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设计规范 - 项目质控助手</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .color-swatch {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .code-block {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 顶部导航 -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-blue-600">质控助手</span>
+                    <span class="ml-4 text-gray-500">设计规范文档</span>
+                </div>
+                <div class="flex items-center">
+                    <a href="dashboard.html" class="text-blue-600 hover:text-blue-700">返回首页</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- 标题 -->
+        <div class="mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">项目质控助手设计规范</h1>
+            <p class="text-lg text-gray-600">统一的设计语言，确保界面一致性和用户体验</p>
+        </div>
+
+        <!-- 目录 -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">目录</h2>
+            <ul class="space-y-2 text-blue-600">
+                <li><a href="#colors" class="hover:underline">1. 颜色系统</a></li>
+                <li><a href="#typography" class="hover:underline">2. 字体系统</a></li>
+                <li><a href="#spacing" class="hover:underline">3. 间距系统</a></li>
+                <li><a href="#components" class="hover:underline">4. 组件样式</a></li>
+                <li><a href="#icons" class="hover:underline">5. 图标使用</a></li>
+                <li><a href="#layout" class="hover:underline">6. 布局规范</a></li>
+                <li><a href="#interactions" class="hover:underline">7. 交互规范</a></li>
+            </ul>
+        </div>
+
+        <!-- 1. 颜色系统 -->
+        <section id="colors" class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">1. 颜色系统</h2>
+            
+            <!-- 主色 -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">主色（Primary）</h3>
+                <p class="text-gray-600 mb-4">用于主要操作按钮、链接、导航激活状态</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div>
+                        <div class="color-swatch bg-blue-600 mb-2"></div>
+                        <p class="text-sm font-medium text-gray-900">Blue 600</p>
+                        <p class="text-xs text-gray-500">#2563eb</p>
+                        <p class="text-xs text-gray-500">主要按钮</p>
+                    </div>
+                    <div>
+                        <div class="color-swatch bg-blue-700 mb-2"></div>
+                        <p class="text-sm font-medium text-gray-900">Blue 700</p>
+                        <p class="text-xs text-gray-500">#1d4ed8</p>
+                        <p class="text-xs text-gray-500">悬停状态</p>
+                    </div>
+                    <div>
+                        <div class="color-swatch bg-blue-100 mb-2"></div>
+                        <p class="text-sm font-medium text-gray-900">Blue 100</p>
+                        <p class="text-xs text-gray-500">#dbeafe</p>
+                        <p class="text-xs text-gray-500">背景色</p>
+                    </div>
+                    <div>
+                        <div class="color-swatch bg-blue-50 mb-2"></div>
+                        <p class="text-sm font-medium text-gray-900">Blue 50</p>
+                        <p class="text-xs text-gray-500">#eff6ff</p>
+                        <p class="text-xs text-gray-500">浅背景</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 状态色 -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">状态色（Status）</h3>
+                <p class="text-gray-600 mb-4">用于表示不同的状态和反馈信息</p>
+                
+                <!-- 成功 -->
+                <div class="mb-6">
+                    <h4 class="text-lg font-medium text-gray-900 mb-3">成功（Success）</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div>
+                            <div class="color-swatch bg-green-600 mb-2"></div>
+                            <p class="text-sm font-medium text-gray-900">Green 600</p>
+                            <p class="text-xs text-gray-500">#16a34a</p>
+                        </div>
+                        <div>
+                            <div class="color-swatch bg-green-100 mb-2"></div>
+                            <p class="text-sm font-medium text-gray-900">Green 100</p>
+                            <p class="text-xs text-gray-500">#dcfce7</p>
+                        </div>
+                        <div>
+                            <div class="color-swatch bg-green-500 mb-2"></div>
+                            <p class="text-sm font-medium text-gray-900">Green 500</p>
+                            <p class="text-xs text-gray-500">#22c55e</p>
+                            <p class="text-xs text-gray-500">绿灯指示器</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 警告 -->
+                <div class="mb-6">
+                    <h4 class="text-lg font-medium text-gray-900 mb-3">警告（Warning）</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div>
+                            <div class="color-swatch bg-yellow-600 mb-2"></div>
+                            <p class="text-sm font-medium text-gray-900">Yellow 600</p>
+                            <p class="text-xs text-gray-500">#ca8a04</p>
+                        </div>
+                        <div>
+                            <div class="color-swatch bg-yellow-100 mb-2"></div>
+                            <p class="text-sm font-medium text-gray-900">Yellow 100</p>
+                            <p class="text-xs text-gray-500">#fef9c3</p>
+                        </div>
+                        <div>
+                            <div class="color-swatch bg-yellow-500 mb-2"></div>
+                            <p class="text-sm font-medium text-gray-900">Yellow 500</p>
+                            <p class="text-xs text-gray-500">#eab308</p>
+                            <p class="text-xs text-gray-500">黄灯指示器</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 错误/危险 -->
+                <div class="mb-6">
+                    <h4 class="text-lg font-medium text-gray-900 mb-3">错误/危险（Error/Danger）</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div>
+                            <div class="color-swatch bg-red-600 mb-2"></div>
+                            <p class="text-sm font-medium text-gray-900">Red 600</p>
+                            <p class="text-xs text-gray-500">#dc2626</p>
+                        </div>
+                        <div>
+                            <div class="color-swatch bg-red-100 mb-2"></div>
+                            <p class="text-sm font-medium text-gray-900">Red 100</p>
+                            <p class="text-xs text-gray-500">#fee2e2</p>
+                        </div>
+                        <div>
+                            <div class="color-swatch bg-red-500 mb-2"></div>
+                            <p class="text-sm font-medium text-gray-900">Red 500</p>
+                            <p class="text-xs text-gray-500">#ef4444</p>
+                            <p class="text-xs text-gray-500">红灯指示器</p>
+                        </div>
+                        <div>
+                            <div class="color-swatch bg-red-50 mb-2"></div>
+                            <p class="text-sm font-medium text-gray-900">Red 50</p>
+                            <p class="text-xs text-gray-500">#fef2f2</p>
+                            <p class="text-xs text-gray-500">低置信度背景</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 中性色 -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">中性色（Neutral）</h3>
+                <p class="text-gray-600 mb-4">用于文本、边框、背景等</p>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <div>
+                        <div class="color-swatch bg-gray-900 mb-2"></div>
+                        <p class="text-sm font-medium text-gray-900">Gray 900</p>
+                        <p class="text-xs text-gray-500">#111827</p>
+                        <p class="text-xs text-gray-500">主标题</p>
+                    </div>
+                    <div>
+                        <div class="color-swatch bg-gray-700 mb-2"></div>
+                        <p class="text-sm font-medium text-gray-900">Gray 700</p>
+                        <p class="text-xs text-gray-500">#374151</p>
+                        <p class="text-xs text-gray-500">正文</p>
+                    </div>
+                    <div>
+                        <div class="color-swatch bg-gray-600 mb-2"></div>
+                        <p class="text-sm font-medium text-gray-900">Gray 600</p>
+                        <p class="text-xs text-gray-500">#4b5563</p>
+                        <p class="text-xs text-gray-500">次要文本</p>
+                    </div>
+                    <div>
+                        <div class="color-swatch bg-gray-300 mb-2"></div>
+                        <p class="text-sm font-medium text-gray-900">Gray 300</p>
+                        <p class="text-xs text-gray-500">#d1d5db</p>
+                        <p class="text-xs text-gray-500">边框</p>
+                    </div>
+                    <div>
+                        <div class="color-swatch bg-gray-100 mb-2"></div>
+                        <p class="text-sm font-medium text-gray-900">Gray 100</p>
+                        <p class="text-xs text-gray-500">#f3f4f6</p>
+                        <p class="text-xs text-gray-500">页面背景</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 字体系统 -->
+        <section id="typography" class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">2. 字体系统</h2>
+            
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">字体家族</h3>
+                <p class="text-gray-600 mb-4">使用系统默认字体栈，确保跨平台一致性</p>
+                <div class="code-block">
+                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">字号与字重</h3>
+                <div class="space-y-4">
+                    <div class="border-b border-gray-200 pb-4">
+                        <p class="text-4xl font-bold text-gray-900 mb-2">页面主标题</p>
+                        <p class="text-sm text-gray-600">text-4xl (36px) / font-bold (700)</p>
+                    </div>
+                    <div class="border-b border-gray-200 pb-4">
+                        <p class="text-3xl font-bold text-gray-900 mb-2">区块标题</p>
+                        <p class="text-sm text-gray-600">text-3xl (30px) / font-bold (700)</p>
+                    </div>
+                    <div class="border-b border-gray-200 pb-4">
+                        <p class="text-2xl font-bold text-gray-900 mb-2">卡片标题</p>
+                        <p class="text-sm text-gray-600">text-2xl (24px) / font-bold (700)</p>
+                    </div>
+                    <div class="border-b border-gray-200 pb-4">
+                        <p class="text-xl font-semibold text-gray-900 mb-2">小标题</p>
+                        <p class="text-sm text-gray-600">text-xl (20px) / font-semibold (600)</p>
+                    </div>
+                    <div class="border-b border-gray-200 pb-4">
+                        <p class="text-lg font-semibold text-gray-900 mb-2">列表标题</p>
+                        <p class="text-sm text-gray-600">text-lg (18px) / font-semibold (600)</p>
+                    </div>
+                    <div class="border-b border-gray-200 pb-4">
+                        <p class="text-base text-gray-700 mb-2">正文文本</p>
+                        <p class="text-sm text-gray-600">text-base (16px) / font-normal (400)</p>
+                    </div>
+                    <div class="border-b border-gray-200 pb-4">
+                        <p class="text-sm text-gray-600 mb-2">次要文本</p>
+                        <p class="text-sm text-gray-600">text-sm (14px) / font-normal (400)</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 mb-2">辅助文本</p>
+                        <p class="text-sm text-gray-600">text-xs (12px) / font-normal (400)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 间距系统 -->
+        <section id="spacing" class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">3. 间距系统</h2>
+            
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Tailwind 间距单位</h3>
+                <p class="text-gray-600 mb-4">使用 Tailwind 的 4px 基础单位系统</p>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <div class="w-32 text-sm font-medium text-gray-700">1 (4px)</div>
+                        <div class="h-4 bg-blue-500" style="width: 4px;"></div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-32 text-sm font-medium text-gray-700">2 (8px)</div>
+                        <div class="h-4 bg-blue-500" style="width: 8px;"></div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-32 text-sm font-medium text-gray-700">4 (16px)</div>
+                        <div class="h-4 bg-blue-500" style="width: 16px;"></div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-32 text-sm font-medium text-gray-700">6 (24px)</div>
+                        <div class="h-4 bg-blue-500" style="width: 24px;"></div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-32 text-sm font-medium text-gray-700">8 (32px)</div>
+                        <div class="h-4 bg-blue-500" style="width: 32px;"></div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-32 text-sm font-medium text-gray-700">12 (48px)</div>
+                        <div class="h-4 bg-blue-500" style="width: 48px;"></div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-32 text-sm font-medium text-gray-700">16 (64px)</div>
+                        <div class="h-4 bg-blue-500" style="width: 64px;"></div>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <h4 class="text-lg font-medium text-gray-900 mb-3">使用建议</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li>组件内部间距：p-4 或 p-6</li>
+                        <li>卡片间距：gap-4 或 gap-6</li>
+                        <li>区块间距：mb-6 或 mb-8</li>
+                        <li>页面边距：px-4 sm:px-6 lg:px-8</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 组件样式 -->
+        <section id="components" class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">4. 组件样式</h2>
+            
+            <!-- 按钮 -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">按钮（Buttons）</h3>
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-2">主要按钮（Primary）</p>
+                        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 shadow transition">
+                            主要操作
+                        </button>
+                        <div class="code-block mt-2">
+                            class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 shadow transition"
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 mb-2">次要按钮（Secondary）</p>
+                        <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition">
+                            次要操作
+                        </button>
+                        <div class="code-block mt-2">
+                            class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition"
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 mb-2">危险按钮（Danger）</p>
+                        <button class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 shadow transition">
+                            删除操作
+                        </button>
+                        <div class="code-block mt-2">
+                            class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 shadow transition"
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 mb-2">幽灵按钮（Ghost）</p>
+                        <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition">
+                            幽灵按钮
+                        </button>
+                        <div class="code-block mt-2">
+                            class="px-4 py-2 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition"
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 输入框 -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">输入框（Input）</h3>
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-2">正常状态</p>
+                        <input type="text" placeholder="请输入内容" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <div class="code-block mt-2">
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 mb-2">错误状态</p>
+                        <input type="text" placeholder="错误输入" 
+                               class="w-full px-3 py-2 border-2 border-red-500 bg-red-50 rounded-md">
+                        <div class="code-block mt-2">
+                            class="w-full px-3 py-2 border-2 border-red-500 bg-red-50 rounded-md"
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 mb-2">禁用状态</p>
+                        <input type="text" placeholder="禁用输入" disabled
+                               class="w-full px-3 py-2 border border-gray-300 bg-gray-100 text-gray-500 rounded-md cursor-not-allowed">
+                        <div class="code-block mt-2">
+                            class="w-full px-3 py-2 border border-gray-300 bg-gray-100 text-gray-500 rounded-md cursor-not-allowed"
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 徽章 -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">徽章（Badges）</h3>
+                <div class="flex flex-wrap gap-3">
+                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                        已完成
+                    </span>
+                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                        处理中
+                    </span>
+                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                        需关注
+                    </span>
+                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
+                        延期预警
+                    </span>
+                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
+                        待处理
+                    </span>
+                </div>
+                <div class="code-block mt-4">
+                    class="px-2 py-1 text-xs font-semibold rounded-full bg-{color}-100 text-{color}-800"
+                </div>
+            </div>
+
+            <!-- 卡片 -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">卡片（Cards）</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-2">基础卡片</h4>
+                        <p class="text-sm text-gray-600">卡片内容示例</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow hover:shadow-lg transition p-6 cursor-pointer">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-2">可交互卡片</h4>
+                        <p class="text-sm text-gray-600">悬停时阴影加深</p>
+                    </div>
+                </div>
+                <div class="code-block mt-4">
+                    基础: class="bg-white rounded-lg shadow p-6"<br>
+                    交互: class="bg-white rounded-lg shadow hover:shadow-lg transition p-6 cursor-pointer"
+                </div>
+            </div>
+
+            <!-- 进度条 -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">进度条（Progress）</h3>
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-2">普通进度条</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-blue-600 h-2 rounded-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 mb-2">带条纹动画</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-blue-600 h-2 rounded-full striped-progress" style="width: 45%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="code-block mt-4">
+                    外层: class="w-full bg-gray-200 rounded-full h-2"<br>
+                    内层: class="bg-blue-600 h-2 rounded-full" style="width: {percent}%"
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. 图标使用 -->
+        <section id="icons" class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">5. 图标使用</h2>
+            
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Heroicons</h3>
+                <p class="text-gray-600 mb-4">使用 Heroicons 作为图标库，保持视觉一致性</p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                        <p class="text-xs text-gray-600 mt-2">通知</p>
+                    </div>
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p class="text-xs text-gray-600 mt-2">完成</p>
+                    </div>
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <p class="text-xs text-gray-600 mt-2">警告</p>
+                    </div>
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <p class="text-xs text-gray-600 mt-2">搜索</p>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <h4 class="text-lg font-medium text-gray-900 mb-3">尺寸规范</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li>小图标：h-4 w-4 (16px)</li>
+                        <li>常规图标：h-5 w-5 (20px) 或 h-6 w-6 (24px)</li>
+                        <li>大图标：h-8 w-8 (32px)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. 布局规范 -->
+        <section id="layout" class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">6. 布局规范</h2>
+            
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">容器宽度</h3>
+                <div class="code-block">
+                    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+                </div>
+                <p class="text-gray-600 mt-4">所有主要内容区域使用统一的容器宽度和响应式边距</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">网格系统</h3>
+                <p class="text-gray-600 mb-4">使用 Tailwind 的响应式网格系统</p>
+                <div class="code-block">
+                    <!-- 1列 -> 2列 -> 3列 --><br>
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">响应式断点</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><span class="font-medium">sm:</span> 640px 及以上</li>
+                    <li><span class="font-medium">md:</span> 768px 及以上</li>
+                    <li><span class="font-medium">lg:</span> 1024px 及以上</li>
+                    <li><span class="font-medium">xl:</span> 1280px 及以上</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 7. 交互规范 -->
+        <section id="interactions" class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">7. 交互规范</h2>
+            
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">悬停效果</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>按钮：背景色加深 (hover:bg-{color}-700)</li>
+                    <li>卡片：阴影加深 (hover:shadow-lg)</li>
+                    <li>链接：颜色加深 (hover:text-{color}-900)</li>
+                    <li>所有交互元素添加 transition 类实现平滑过渡</li>
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">焦点状态</h3>
+                <p class="text-gray-600 mb-4">所有可交互元素应有明显的焦点状态</p>
+                <div class="code-block">
+                    focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">动画时长</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>快速交互：0.15s - 0.2s (按钮、链接)</li>
+                    <li>常规交互：0.3s (卡片、下拉菜单)</li>
+                    <li>慢速交互：0.5s (模态框、通知)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 页脚 -->
+        <footer class="border-t border-gray-200 pt-8 pb-12">
+            <div class="text-center text-gray-600">
+                <p class="mb-2">项目质控助手设计规范 v1.0</p>
+                <p class="text-sm">基于 Tailwind CSS 构建</p>
+            </div>
+        </footer>
+    </div>
+
+    <style>
+        .striped-progress {
+            background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+            background-size: 1rem 1rem;
+            animation: progress-bar-stripes 1s linear infinite;
+        }
+        @keyframes progress-bar-stripes {
+            from { background-position: 1rem 0; }
+            to { background-position: 0 0; }
+        }
+    </style>
+</body>
+</html>

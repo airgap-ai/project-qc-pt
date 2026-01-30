@@ -1,0 +1,179 @@
+<!-- 统一顶部导航栏组件 -->
+<nav class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <!-- Logo 和主菜单 -->
+            <div class="flex">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="project-qc-home.html" class="text-2xl font-bold text-blue-600">项目质控助手</a>
+                </div>
+                <div class="hidden sm:ml-8 sm:flex sm:space-x-8">
+                    <a href="project-qc-home.html" class="nav-link border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium transition" data-page="home">
+                        首页
+                    </a>
+                    <a href="project-qc-document-upload.html" class="nav-link border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium transition" data-page="upload">
+                        文档上传
+                    </a>
+                    <a href="project-qc-extraction-review.html" class="nav-link border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium transition" data-page="review">
+                        内容校验
+                    </a>
+                    <a href="project-qc-progress-tracking.html" class="nav-link border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium transition" data-page="tracking">
+                        进度跟踪
+                    </a>
+                    <a href="project-qc-alert-dashboard.html" class="nav-link border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium transition" data-page="alert">
+                        预警看板
+                    </a>
+                </div>
+            </div>
+
+            <!-- 右侧：通知和用户信息 -->
+            <div class="flex items-center space-x-4">
+                <!-- 通知图标 -->
+                <div class="relative">
+                    <button id="notificationBtn" class="p-2 text-gray-600 hover:bg-gray-100 rounded-full relative transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                        <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">3</span>
+                    </button>
+                    
+                    <!-- 通知下拉面板 -->
+                    <div id="notificationPanel" class="hidden absolute right-0 mt-2 w-96 bg-white rounded-lg shadow-xl border border-gray-200">
+                        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                            <h3 class="text-lg font-semibold text-gray-900">通知</h3>
+                            <button class="text-xs text-blue-600 hover:text-blue-800 font-medium">全部已读</button>
+                        </div>
+                        <div class="max-h-96 overflow-y-auto">
+                            <div class="p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer transition">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <span class="inline-block h-2 w-2 bg-red-500 rounded-full"></span>
+                                    </div>
+                                    <div class="ml-3 flex-1">
+                                        <div class="flex justify-between items-start">
+                                            <p class="text-sm font-medium text-gray-900">项目延期预警</p>
+                                            <span class="text-xs text-gray-400">5分钟前</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 mt-1">智慧园区二期项目已延期3天</p>
+                                        <a href="project-qc-alert-dashboard.html" class="text-xs text-blue-600 hover:text-blue-800 mt-2 inline-block">查看详情 →</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer transition">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <span class="inline-block h-2 w-2 bg-yellow-500 rounded-full"></span>
+                                    </div>
+                                    <div class="ml-3 flex-1">
+                                        <div class="flex justify-between items-start">
+                                            <p class="text-sm font-medium text-gray-900">交付物缺失提醒</p>
+                                            <span class="text-xs text-gray-400">1小时前</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 mt-1">AI平台升级项目缺少技术架构文档</p>
+                                        <a href="project-qc-alert-dashboard.html" class="text-xs text-blue-600 hover:text-blue-800 mt-2 inline-block">查看详情 →</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 hover:bg-gray-50 cursor-pointer transition">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <span class="inline-block h-2 w-2 bg-blue-500 rounded-full"></span>
+                                    </div>
+                                    <div class="ml-3 flex-1">
+                                        <div class="flex justify-between items-start">
+                                            <p class="text-sm font-medium text-gray-900">内容提取完成</p>
+                                            <span class="text-xs text-gray-400">2小时前</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 mt-1">数据中台项目合同内容提取完成，请前往校验</p>
+                                        <a href="project-qc-extraction-review.html" class="text-xs text-blue-600 hover:text-blue-800 mt-2 inline-block">去处理 →</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 用户菜单 -->
+                <div class="relative">
+                    <button id="userMenuBtn" class="flex items-center space-x-2 text-gray-700 hover:text-gray-900 transition">
+                        <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
+                            张
+                        </div>
+                        <span class="text-sm font-medium">张三</span>
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    
+                    <!-- 用户下拉菜单 -->
+                    <div id="userMenuPanel" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200">
+                        <div class="py-1">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">个人设置</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">帮助中心</a>
+                            <div class="border-t border-gray-100"></div>
+                            <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition">退出登录</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+// 导航栏交互逻辑
+document.addEventListener('DOMContentLoaded', function() {
+    // 高亮当前页面
+    const currentPage = document.body.getAttribute('data-page');
+    if (currentPage) {
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            if (link.getAttribute('data-page') === currentPage) {
+                link.classList.remove('border-transparent', 'text-gray-500');
+                link.classList.add('border-blue-500', 'text-gray-900');
+            }
+        });
+    }
+
+    // 通知面板切换
+    const notificationBtn = document.getElementById('notificationBtn');
+    const notificationPanel = document.getElementById('notificationPanel');
+    
+    if (notificationBtn && notificationPanel) {
+        notificationBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            notificationPanel.classList.toggle('hidden');
+            // 关闭用户菜单
+            const userMenuPanel = document.getElementById('userMenuPanel');
+            if (userMenuPanel) {
+                userMenuPanel.classList.add('hidden');
+            }
+        });
+    }
+
+    // 用户菜单切换
+    const userMenuBtn = document.getElementById('userMenuBtn');
+    const userMenuPanel = document.getElementById('userMenuPanel');
+    
+    if (userMenuBtn && userMenuPanel) {
+        userMenuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            userMenuPanel.classList.toggle('hidden');
+            // 关闭通知面板
+            if (notificationPanel) {
+                notificationPanel.classList.add('hidden');
+            }
+        });
+    }
+
+    // 点击外部关闭所有下拉菜单
+    document.addEventListener('click', function() {
+        if (notificationPanel) {
+            notificationPanel.classList.add('hidden');
+        }
+        if (userMenuPanel) {
+            userMenuPanel.classList.add('hidden');
+        }
+    });
+});
+</script>

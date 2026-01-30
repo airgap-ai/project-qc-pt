@@ -1,0 +1,5 @@
+{
+    "kiroAgent.configureMCP": "Enabled",
+    "livePreview.defaultPreviewPath": "/frontend/dashboard.html",
+    "html.autoClosingTags": false
+}

@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>预警与风险提示看板 - 项目质控助手</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 pt-16" data-page="alert">
+    <!-- 顶部导航 -->
+    <nav class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- Logo 和主菜单 -->
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="project-qc-home.html" class="text-2xl font-bold text-blue-600">项目质控助手</a>
+                    </div>
+                    <div class="hidden sm:ml-8 sm:flex sm:space-x-8">
+                        <a href="project-qc-home.html" class="nav-link border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium transition">
+                            首页
+                        </a>
+                        <a href="project-qc-document-upload.html" class="nav-link border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium transition">
+                            文档上传
+                        </a>
+                        <a href="project-qc-extraction-review.html" class="nav-link border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium transition">
+                            内容校验
+                        </a>
+                        <a href="project-qc-progress-tracking.html" class="nav-link border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium transition">
+                            进度跟踪
+                        </a>
+                        <a href="project-qc-alert-dashboard.html" class="nav-link border-b-2 border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium transition">
+                            预警看板
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 右侧：通知和用户信息 -->
+                <div class="flex items-center space-x-4">
+                    <!-- 通知图标 -->
+                    <div class="relative">
+                        <button id="notificationBtn" class="p-2 text-gray-600 hover:bg-gray-100 rounded-full relative transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                            </svg>
+                            <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">3</span>
+                        </button>
+                        
+                        <!-- 通知下拉面板 -->
+                        <div id="notificationPanel" class="hidden absolute right-0 mt-2 w-96 bg-white rounded-lg shadow-xl border border-gray-200">
+                            <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                                <h3 class="text-lg font-semibold text-gray-900">通知</h3>
+                                <button class="text-xs text-blue-600 hover:text-blue-800 font-medium">全部已读</button>
+                            </div>
+                            <div class="max-h-96 overflow-y-auto">
+                                <div class="p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer transition">
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <span class="inline-block h-2 w-2 bg-red-500 rounded-full"></span>
+                                        </div>
+                                        <div class="ml-3 flex-1">
+                                            <div class="flex justify-between items-start">
+                                                <p class="text-sm font-medium text-gray-900">项目延期预警</p>
+                                                <span class="text-xs text-gray-400">5分钟前</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">智慧园区二期项目已延期3天</p>
+                                            <a href="project-qc-alert-dashboard.html" class="text-xs text-blue-600 hover:text-blue-800 mt-2 inline-block">查看详情 →</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer transition">
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <span class="inline-block h-2 w-2 bg-yellow-500 rounded-full"></span>
+                                        </div>
+                                        <div class="ml-3 flex-1">
+                                            <div class="flex justify-between items-start">
+                                                <p class="text-sm font-medium text-gray-900">交付物缺失提醒</p>
+                                                <span class="text-xs text-gray-400">1小时前</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">AI平台升级项目缺少技术架构文档</p>
+                                            <a href="project-qc-alert-dashboard.html" class="text-xs text-blue-600 hover:text-blue-800 mt-2 inline-block">查看详情 →</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 hover:bg-gray-50 cursor-pointer transition">
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <span class="inline-block h-2 w-2 bg-blue-500 rounded-full"></span>
+                                        </div>
+                                        <div class="ml-3 flex-1">
+                                            <div class="flex justify-between items-start">
+                                                <p class="text-sm font-medium text-gray-900">内容提取完成</p>
+                                                <span class="text-xs text-gray-400">2小时前</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">数据中台项目合同内容提取完成，请前往校验</p>
+                                            <a href="project-qc-extraction-review.html" class="text-xs text-blue-600 hover:text-blue-800 mt-2 inline-block">去处理 →</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 用户菜单 -->
+                    <div class="relative">
+                        <button id="userMenuBtn" class="flex items-center space-x-2 text-gray-700 hover:text-gray-900 transition">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
+                                张
+                            </div>
+                            <span class="text-sm font-medium">张三</span>
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        
+                        <!-- 用户下拉菜单 -->
+                        <div id="userMenuPanel" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200">
+                            <div class="py-1">
+                                <a href="user-settings.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">个人设置</a>
+                                <a href="help-center.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">帮助中心</a>
+                                <div class="border-t border-gray-100"></div>
+                                <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition">退出登录</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- 页面标题 -->
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">预警与风险提示看板</h2>
+            <p class="text-gray-600">实时监控项目风险，及时发现并处理异常情况</p>
+        </div>
+
+        <!-- 统计卡片 -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">总预警数</p>
+                        <p class="text-3xl font-bold text-gray-900">14</p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                        <svg class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">高风险</p>
+                        <p class="text-3xl font-bold text-red-600">4</p>
+                    </div>
+                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                        <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">中风险</p>
+                        <p class="text-3xl font-bold text-yellow-600">6</p>
+                    </div>
+                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                        <svg class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">低风险</p>
+                        <p class="text-3xl font-bold text-blue-600">4</p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                        <svg class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 筛选器 -->
+        <div class="bg-white rounded-lg shadow p-4 mb-6 filter-form">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">风险等级</label>
+                    <select name="riskLevel" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        <option>全部</option>
+                        <option>高风险</option>
+                        <option>中风险</option>
+                        <option>低风险</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">预警类型</label>
+                    <select name="alertType" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        <option>全部</option>
+                        <option>材料不一致</option>
+                        <option>逾期风险</option>
+                        <option>交付物缺失</option>
+                        <option>审计风险</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">项目名称</label>
+                    <select name="projectName" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        <option>全部项目</option>
+                        <option>智慧园区二期工程</option>
+                        <option>数据中台建设项目</option>
+                        <option>AI平台升级改造</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">处理状态</label>
+                    <select name="status" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        <option>全部</option>
+                        <option>未处理</option>
+                        <option>处理中</option>
+                        <option>已处理</option>
+                        <option>已忽略</option>
+                    </select>
+                </div>
+                <div class="flex items-end">
+                    <button class="w-full px-4 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition">
+                        查询
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 预警列表 -->
+        <div class="space-y-4">
+            <!-- 高风险预警 1 -->
+            <div class="alert-item bg-white rounded-lg shadow overflow-hidden" data-risk-level="高风险" data-alert-type="审计风险" data-project-id="PRJ-2026-001" data-project-name="智慧园区二期工程" data-status="未处理">
+                <div class="bg-red-50 border-l-4 border-red-500 p-4">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800 mr-2">高风险</span>
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800 mr-2">审计风险</span>
+                                <span class="text-xs text-gray-500">2026-01-27 14:30</span>
+                            </div>
+                            <h3 class="text-base font-semibold text-red-900 mb-2">项目进度严重逾期 - 智慧园区二期工程</h3>
+                            <p class="text-sm text-red-800 mb-3">
+                                项目"需求调研与方案设计"阶段已超过约定期限15天，但里程碑交付物"需求调研报告"尚未上传至系统，存在严重审计风险。
+                            </p>
+                            
+                            <div class="bg-white rounded p-3 mb-3">
+                                <p class="text-xs font-medium text-gray-700 mb-2">详细信息：</p>
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <div>
+                                        <span class="text-gray-600">项目编号：</span>
+                                        <span class="font-medium text-gray-900">PRJ-2026-001</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-600">项目经理：</span>
+                                        <span class="font-medium text-gray-900">张三</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-600">约定完成时间：</span>
+                                        <span class="font-medium text-gray-900">2026-01-10</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-600">逾期天数：</span>
+                                        <span class="font-medium text-red-600">15天</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-2">
+                                <a href="#" onclick="viewProjectDetail('PRJ-2026-001'); return false;" class="px-3 py-1 text-xs bg-red-600 text-white rounded hover:bg-red-700 transition">
+                                    查看详情
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="ml-4">
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">未处理</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 高风险预警 2 -->
+            <div class="alert-item bg-white rounded-lg shadow overflow-hidden" data-risk-level="高风险" data-alert-type="审计风险" data-project-id="PRJ-2025-089" data-project-name="数据中台建设项目" data-status="处理中">
+                <div class="bg-red-50 border-l-4 border-red-500 p-4">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800 mr-2">高风险</span>
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800 mr-2">审计风险</span>
+                                <span class="text-xs text-gray-500">2026-01-26 10:15</span>
+                            </div>
+                            <h3 class="text-base font-semibold text-red-900 mb-2">付款超过约定期限 - 数据中台建设项目</h3>
+                            <p class="text-sm text-red-800 mb-3">
+                                第2次付款条件已满足（系统上线试运行完成），但已超过约定付款期限10天，存在合同违约风险。
+                            </p>
+                            
+                            <div class="bg-white rounded p-3 mb-3">
+                                <p class="text-xs font-medium text-gray-700 mb-2">详细信息：</p>
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <div>
+                                        <span class="text-gray-600">项目编号：</span>
+                                        <span class="font-medium text-gray-900">PRJ-2025-089</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-600">付款金额：</span>
+                                        <span class="font-medium text-gray-900">¥2,000,000</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-600">约定付款期限：</span>
+                                        <span class="font-medium text-gray-900">2026-01-15</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-600">超期天数：</span>
+                                        <span class="font-medium text-red-600">10天</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-2">
+                                <a href="#" onclick="viewProjectDetail('PRJ-2025-089'); return false;" class="px-3 py-1 text-xs bg-red-600 text-white rounded hover:bg-red-700 transition">
+                                    查看详情
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="ml-4">
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">处理中</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 高风险预警 3 - 约定人员不符 -->
+            <div class="alert-item bg-white rounded-lg shadow overflow-hidden" data-risk-level="高风险" data-alert-type="人员进场异常" data-project-id="PRJ-2026-001" data-project-name="智慧园区二期工程" data-status="未处理">
+                <div class="bg-red-50 border-l-4 border-red-500 p-4">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800 mr-2">高风险</span>
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800 mr-2">人员进场异常</span>
+                                <span class="text-xs text-gray-500">2026-01-27 09:15</span>
+                            </div>
+                            <h3 class="text-base font-semibold text-red-900 mb-2">约定人员不符 - 智慧园区二期工程</h3>
+                            <p class="text-sm text-red-800 mb-3">
+                                开发人员实际进场人员与约定人员名单不一致，存在未约定人员进场情况，可能存在合规风险。
+                            </p>
+                            
+                            <div class="bg-white rounded p-3 mb-3">
+                                <p class="text-xs font-medium text-gray-700 mb-2">人员对比：</p>
+                                <div class="space-y-2 text-xs">
+                                    <div>
+                                        <span class="text-gray-600">岗位：</span>
+                                        <span class="font-medium text-gray-900">开发人员</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-600">约定人员：</span>
+                                        <span class="text-gray-700">王五、赵六、孙七、周八、吴九</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-600">实际进场：</span>
+                                        <span class="text-gray-700">王五、赵六、孙七、周八、<span class="font-semibold text-red-600 bg-red-100 px-1 rounded">陈十五（未约定）</span></span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-600">缺失人员：</span>
+                                        <span class="text-red-600 font-medium">吴九</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-2">
+                                <a href="#" onclick="viewProjectDetail('PRJ-2026-001'); return false;" class="px-3 py-1 text-xs bg-red-600 text-white rounded hover:bg-red-700 transition">
+                                    查看详情
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="ml-4">
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">未处理</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 中风险预警 1 -->
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800 mr-2">中风险</span>
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800 mr-2">逾期风险</span>
+                                <span class="text-xs text-gray-500">2026-01-27 09:00</span>
+                            </div>
+                            <h3 class="text-base font-semibold text-yellow-900 mb-2">项目即将逾期 - 智慧园区二期工程</h3>
+                            <p class="text-sm text-yellow-800 mb-3">
+                                根据当前进度分析，"开发上线"阶段预计将延期5天完成，可能影响后续里程碑节点。
+                            </p>
+                            
+                            <div class="bg-white rounded p-3 mb-3">
+                                <p class="text-xs font-medium text-gray-700 mb-2">详细信息：</p>
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <div>
+                                        <span class="text-gray-600">当前进度：</span>
+                                        <span class="font-medium text-gray-900">45%</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-600">计划完成时间：</span>
+                                        <span class="font-medium text-gray-900">2026-06-30</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-600">预计完成时间：</span>
+                                        <span class="font-medium text-yellow-600">2026-07-05</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-600">预计延期：</span>
+                                        <span class="font-medium text-yellow-600">5天</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-2">
+                                <a href="project-qc-progress-tracking.html" class="px-3 py-1 text-xs bg-yellow-600 text-white rounded hover:bg-yellow-700 transition">
+                                    查看详情
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="ml-4">
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">未处理</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 中风险预警 2 -->
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800 mr-2">中风险</span>
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800 mr-2">交付物缺失</span>
+                                <span class="text-xs text-gray-500">2026-01-26 16:45</span>
+                            </div>
+                            <h3 class="text-base font-semibold text-yellow-900 mb-2">里程碑交付物缺失 - AI平台升级改造</h3>
+                            <p class="text-sm text-yellow-800 mb-3">
+                                "需求调研与方案设计"阶段已完成，但缺少关键交付物"技术架构设计文档"，建议尽快补充。
+                            </p>
+                            
+                            <div class="bg-white rounded p-3 mb-3">
+                                <p class="text-xs font-medium text-gray-700 mb-2">缺失交付物：</p>
+                                <ul class="text-xs text-gray-700 space-y-1">
+                                    <li class="flex items-center">
+                                        <svg class="h-4 w-4 text-yellow-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                        </svg>
+                                        技术架构设计文档.pdf
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="flex items-center space-x-2">
+                                <a href="project-qc-progress-tracking.html" class="px-3 py-1 text-xs bg-yellow-600 text-white rounded hover:bg-yellow-700 transition">
+                                    查看详情
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="ml-4">
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">未处理</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 中风险预警 3 - 人员进场异常 -->
+            <div class="alert-item bg-white rounded-lg shadow overflow-hidden" data-risk-level="中风险" data-alert-type="人员进场异常" data-project-id="PRJ-2026-001" data-project-name="智慧园区二期工程" data-status="未处理">
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800 mr-2">中风险</span>
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800 mr-2">人员进场异常</span>
+                                <span class="text-xs text-gray-500">2026-01-27 08:30</span>
+                            </div>
+                            <h3 class="text-base font-semibold text-yellow-900 mb-2">项目人员进场数量不足 - 智慧园区二期工程</h3>
+                            <p class="text-sm text-yellow-800 mb-3">
+                                项目约定投入12人，实际进场10人，缺口2人。开发人员缺1人（约定5人，实际4人）、实施人员缺1人（约定3人，实际2人）。
+                            </p>
+                            
+                            <div class="bg-white rounded p-3 mb-3">
+                                <p class="text-xs font-medium text-gray-700 mb-2">详细信息：</p>
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <div>
+                                        <span class="text-gray-600">项目编号：</span>
+                                        <span class="font-medium text-gray-900">PRJ-2026-001</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-600">约定人数：</span>
+                                        <span class="font-medium text-gray-900">12人</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-600">实际进场：</span>
+                                        <span class="font-medium text-yellow-600">10人</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-600">人员缺口：</span>
+                                        <span class="font-medium text-yellow-600">2人</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-2">
+                                <a href="#" onclick="viewProjectDetail('PRJ-2026-001'); return false;" class="px-3 py-1 text-xs bg-yellow-600 text-white rounded hover:bg-yellow-700 transition">
+                                    查看详情
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="ml-4">
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">未处理</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 低风险预警 -->
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 mr-2">低风险</span>
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800 mr-2">材料不一致</span>
+                                <span class="text-xs text-gray-500">2026-01-25 11:20</span>
+                            </div>
+                            <h3 class="text-base font-semibold text-blue-900 mb-2">文档内容轻微不一致 - 数据中台建设项目</h3>
+                            <p class="text-sm text-blue-800 mb-3">
+                                招标文件与合同文件中对"系统培训"的描述略有差异，建议核实确认。
+                            </p>
+
+                            <div class="flex items-center space-x-2">
+                                <a href="project-qc-progress-tracking.html" class="px-3 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                                    查看详情
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="ml-4">
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">已处理</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 分页 -->
+        <div class="mt-6 flex items-center justify-between">
+            <div class="text-sm text-gray-700">
+                显示 <span class="font-medium">1</span> 到 <span class="font-medium">5</span> 条，共 <span class="font-medium">12</span> 条
+            </div>
+            <div class="flex space-x-2">
+                <button class="px-3 py-1 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition disabled:opacity-50" disabled>
+                    上一页
+                </button>
+                <button class="px-3 py-1 bg-blue-600 text-white rounded">1</button>
+                <button class="px-3 py-1 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition">2</button>
+                <button class="px-3 py-1 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition">3</button>
+                <button class="px-3 py-1 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition">
+                    下一页
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // 导航栏交互逻辑
+    document.addEventListener('DOMContentLoaded', function() {
+        // 通知面板切换
+        const notificationBtn = document.getElementById('notificationBtn');
+        const notificationPanel = document.getElementById('notificationPanel');
+        
+        if (notificationBtn && notificationPanel) {
+            notificationBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                notificationPanel.classList.toggle('hidden');
+                const userMenuPanel = document.getElementById('userMenuPanel');
+                if (userMenuPanel) {
+                    userMenuPanel.classList.add('hidden');
+                }
+            });
+        }
+
+        // 用户菜单切换
+        const userMenuBtn = document.getElementById('userMenuBtn');
+        const userMenuPanel = document.getElementById('userMenuPanel');
+        
+        if (userMenuBtn && userMenuPanel) {
+            userMenuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                userMenuPanel.classList.toggle('hidden');
+                if (notificationPanel) {
+                    notificationPanel.classList.add('hidden');
+                }
+            });
+        }
+
+        // 点击外部关闭所有下拉菜单
+        document.addEventListener('click', function() {
+            if (notificationPanel) {
+                notificationPanel.classList.add('hidden');
+            }
+            if (userMenuPanel) {
+                userMenuPanel.classList.add('hidden');
+            }
+        });
+
+        // 筛选功能
+        const filterForm = document.querySelector('.filter-form');
+        if (filterForm) {
+            const filterInputs = filterForm.querySelectorAll('select');
+            filterInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    applyFilters();
+                });
+            });
+        }
+    });
+
+    /**
+     * 应用筛选条件
+     */
+    function applyFilters() {
+        const riskLevel = document.querySelector('[name="riskLevel"]').value;
+        const alertType = document.querySelector('[name="alertType"]').value;
+        const projectName = document.querySelector('[name="projectName"]').value;
+        const status = document.querySelector('[name="status"]').value;
+        
+        console.log('筛选条件:', { riskLevel, alertType, projectName, status });
+        
+        // 获取所有预警项
+        const alerts = document.querySelectorAll('.alert-item');
+        let visibleCount = 0;
+        
+        alerts.forEach(alert => {
+            let show = true;
+            
+            // 风险等级筛选
+            if (riskLevel && riskLevel !== '全部') {
+                show = show && alert.dataset.riskLevel === riskLevel;
+            }
+            
+            // 预警类型筛选
+            if (alertType && alertType !== '全部') {
+                show = show && alert.dataset.alertType === alertType;
+            }
+            
+            // 项目名称筛选
+            if (projectName && projectName !== '全部项目') {
+                show = show && alert.dataset.projectName === projectName;
+            }
+            
+            // 处理状态筛选
+            if (status && status !== '全部') {
+                show = show && alert.dataset.status === status;
+            }
+            
+            // 显示或隐藏预警项
+            if (show) {
+                alert.style.display = 'block';
+                visibleCount++;
+            } else {
+                alert.style.display = 'none';
+            }
+        });
+        
+        console.log(`显示 ${visibleCount} 条预警`);
+    }
+
+    /**
+     * 查看项目详情 - 跳转到进度跟踪页面并带上项目ID
+     * @param {string} projectId - 项目ID
+     */
+    function viewProjectDetail(projectId) {
+        console.log('查看项目详情:', projectId);
+        // 跳转到进度跟踪页面，带上项目ID参数
+        window.location.href = `project-qc-progress-tracking.html?projectId=${projectId}`;
+    }
+    </script>
+</body>
+</html>

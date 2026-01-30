@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>合同要素提取校验 - 项目质控助手</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 pt-16" data-page="review">
+    <!-- 顶部导航 -->
+    <nav class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- Logo 和主菜单 -->
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="project-qc-home.html" class="text-2xl font-bold text-blue-600">项目质控助手</a>
+                    </div>
+                    <div class="hidden sm:ml-8 sm:flex sm:space-x-8">
+                        <a href="project-qc-home.html" class="nav-link border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium transition">
+                            首页
+                        </a>
+                        <a href="project-qc-document-upload.html" class="nav-link border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium transition">
+                            文档上传
+                        </a>
+                        <a href="project-qc-extraction-review.html" class="nav-link border-b-2 border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium transition">
+                            内容校验
+                        </a>
+                        <a href="project-qc-progress-tracking.html" class="nav-link border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium transition">
+                            进度跟踪
+                        </a>
+                        <a href="project-qc-alert-dashboard.html" class="nav-link border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium transition">
+                            预警看板
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 右侧：通知和用户信息 -->
+                <div class="flex items-center space-x-4">
+                    <!-- 通知图标 -->
+                    <div class="relative">
+                        <button id="notificationBtn" class="p-2 text-gray-600 hover:bg-gray-100 rounded-full relative transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                            </svg>
+                            <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">3</span>
+                        </button>
+                        
+                        <!-- 通知下拉面板 -->
+                        <div id="notificationPanel" class="hidden absolute right-0 mt-2 w-96 bg-white rounded-lg shadow-xl border border-gray-200">
+                            <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                                <h3 class="text-lg font-semibold text-gray-900">通知</h3>
+                                <button class="text-xs text-blue-600 hover:text-blue-800 font-medium">全部已读</button>
+                            </div>
+                            <div class="max-h-96 overflow-y-auto">
+                                <div class="p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer transition">
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <span class="inline-block h-2 w-2 bg-red-500 rounded-full"></span>
+                                        </div>
+                                        <div class="ml-3 flex-1">
+                                            <div class="flex justify-between items-start">
+                                                <p class="text-sm font-medium text-gray-900">项目延期预警</p>
+                                                <span class="text-xs text-gray-400">5分钟前</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">智慧园区二期项目已延期3天</p>
+                                            <a href="project-qc-alert-dashboard.html" class="text-xs text-blue-600 hover:text-blue-800 mt-2 inline-block">查看详情 →</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer transition">
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <span class="inline-block h-2 w-2 bg-yellow-500 rounded-full"></span>
+                                        </div>
+                                        <div class="ml-3 flex-1">
+                                            <div class="flex justify-between items-start">
+                                                <p class="text-sm font-medium text-gray-900">交付物缺失提醒</p>
+                                                <span class="text-xs text-gray-400">1小时前</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">AI平台升级项目缺少技术架构文档</p>
+                                            <a href="project-qc-alert-dashboard.html" class="text-xs text-blue-600 hover:text-blue-800 mt-2 inline-block">查看详情 →</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 hover:bg-gray-50 cursor-pointer transition">
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 mt-1">
+                                            <span class="inline-block h-2 w-2 bg-blue-500 rounded-full"></span>
+                                        </div>
+                                        <div class="ml-3 flex-1">
+                                            <div class="flex justify-between items-start">
+                                                <p class="text-sm font-medium text-gray-900">内容提取完成</p>
+                                                <span class="text-xs text-gray-400">2小时前</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">数据中台项目合同内容提取完成，请前往校验</p>
+                                            <a href="project-qc-extraction-review.html" class="text-xs text-blue-600 hover:text-blue-800 mt-2 inline-block">去处理 →</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 用户菜单 -->
+                    <div class="relative">
+                        <button id="userMenuBtn" class="flex items-center space-x-2 text-gray-700 hover:text-gray-900 transition">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
+                                张
+                            </div>
+                            <span class="text-sm font-medium">张三</span>
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        
+                        <!-- 用户下拉菜单 -->
+                        <div id="userMenuPanel" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200">
+                            <div class="py-1">
+                                <a href="user-settings.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">个人设置</a>
+                                <a href="help-center.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">帮助中心</a>
+                                <div class="border-t border-gray-100"></div>
+                                <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition">退出登录</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- 页面标题 -->
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">合同要素提取校验</h2>
+            <p class="text-gray-600">查看AI提取的结构化内容，进行人工校验和修正</p>
+        </div>
+
+        <!-- 项目选择器 -->
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">选择项目</h3>
+            <select id="projectSelector" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <option value="1">智慧园区二期工程 (PRJ-2026-001)</option>
+                <option value="2">数据中台建设项目 (PRJ-2025-089)</option>
+                <option value="3">AI平台升级改造 (PRJ-2026-015)</option>
+            </select>
+        </div>
+
+        <!-- 自动校验结果区域 -->
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-6">
+            <div class="flex items-start mb-4">
+                <svg class="h-6 w-6 text-yellow-600 mt-0.5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <div class="flex-1">
+                    <h4 class="text-lg font-semibold text-yellow-900 mb-2">自动校验发现 3 处不一致</h4>
+                    <p class="text-sm text-yellow-800 mb-4">系统检测到以下内容在不同文档中存在差异，请人工确认</p>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <!-- 不一致项 1 -->
+                <div class="bg-white rounded-lg p-4 border border-yellow-300">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <span class="px-2 py-1 text-xs font-semibold rounded bg-yellow-100 text-yellow-800 mr-2">付款计划</span>
+                                <span class="text-sm font-medium text-gray-900">第二次付款比例不一致</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">
+                                <span class="font-medium">招标文件:</span> 30% | 
+                                <span class="font-medium">合同文件:</span> 35%
+                            </p>
+                        </div>
+                        <button class="ml-4 px-3 py-1 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition">
+                            查看原文
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 不一致项 2 -->
+                <div class="bg-white rounded-lg p-4 border border-yellow-300">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <span class="px-2 py-1 text-xs font-semibold rounded bg-yellow-100 text-yellow-800 mr-2">时间节点</span>
+                                <span class="text-sm font-medium text-gray-900">初验时间不一致</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">
+                                <span class="font-medium">招标文件:</span> 2026-09-30 | 
+                                <span class="font-medium">合同文件:</span> 2026-10-15
+                            </p>
+                        </div>
+                        <button class="ml-4 px-3 py-1 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition">
+                            查看原文
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 不一致项 3 -->
+                <div class="bg-white rounded-lg p-4 border border-yellow-300">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <span class="px-2 py-1 text-xs font-semibold rounded bg-yellow-100 text-yellow-800 mr-2">人员要求</span>
+                                <span class="text-sm font-medium text-gray-900">项目经理资质要求不一致</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">
+                                <span class="font-medium">招标文件:</span> 信息系统项目管理师 | 
+                                <span class="font-medium">合同文件:</span> 高级项目管理师
+                            </p>
+                        </div>
+                        <button class="ml-4 px-3 py-1 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition">
+                            查看原文
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 导航和内容区域 -->
+        <div class="bg-white rounded-lg shadow">
+            <!-- Tab 导航 -->
+            <div class="border-b border-gray-200">
+                <nav class="flex -mb-px">
+                    <button class="tab-btn active px-6 py-4 text-sm font-medium border-b-2 border-blue-500 text-blue-600" data-tab="payment">
+                        付款计划
+                    </button>
+                    <button class="tab-btn px-6 py-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="schedule">
+                        时间节点
+                    </button>
+                    <button class="tab-btn px-6 py-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="deliverables">
+                        交付物
+                    </button>
+                    <button class="tab-btn px-6 py-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="personnel">
+                        人员要求
+                    </button>
+                    <button class="tab-btn px-6 py-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="subcontract">
+                        分包政策
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Tab 内容 -->
+            <div class="p-6">
+                <!-- Tab 1: 付款计划 -->
+                <div id="tab-payment" class="tab-content">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold text-gray-900">付款计划</h3>
+                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition">
+                            查看原文档
+                        </button>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- 价格信息 -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">含税价格（元）</label>
+                                <input type="text" value="5,800,000" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">税率（%）</label>
+                                <input type="text" value="6" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">不含税价格（元）</label>
+                                <input type="text" value="5,471,698" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">增值税（元）</label>
+                            <input type="text" value="328,302" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+
+                        <!-- 付款计划表格 -->
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-900 mb-4">分期付款计划</h4>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">期次</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">付款条件</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">付款比例</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">付款金额（元）</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-4 py-3 text-sm text-gray-900">第一次</td>
+                                            <td class="px-4 py-3">
+                                                <input type="text" value="合同签订后5个工作日内" class="w-full px-2 py-1 border border-gray-300 rounded text-sm">
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <input type="text" value="20%" class="w-full px-2 py-1 border border-gray-300 rounded text-sm">
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <input type="text" value="1,160,000" class="w-full px-2 py-1 border border-gray-300 rounded text-sm">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 text-sm text-gray-900">第二次</td>
+                                            <td class="px-4 py-3">
+                                                <input type="text" value="系统开发完成并通过初验后" class="w-full px-2 py-1 border border-gray-300 rounded text-sm">
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <input type="text" value="35%" class="w-full px-2 py-1 border border-gray-300 rounded text-sm bg-yellow-50 border-yellow-300">
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <input type="text" value="2,030,000" class="w-full px-2 py-1 border border-gray-300 rounded text-sm">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 text-sm text-gray-900">第三次</td>
+                                            <td class="px-4 py-3">
+                                                <input type="text" value="系统终验合格后" class="w-full px-2 py-1 border border-gray-300 rounded text-sm">
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <input type="text" value="35%" class="w-full px-2 py-1 border border-gray-300 rounded text-sm">
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <input type="text" value="2,030,000" class="w-full px-2 py-1 border border-gray-300 rounded text-sm">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 text-sm text-gray-900">第四次</td>
+                                            <td class="px-4 py-3">
+                                                <input type="text" value="质保期满后" class="w-full px-2 py-1 border border-gray-300 rounded text-sm">
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <input type="text" value="10%" class="w-full px-2 py-1 border border-gray-300 rounded text-sm">
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <input type="text" value="580,000" class="w-full px-2 py-1 border border-gray-300 rounded text-sm">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: 时间节点 -->
+                <div id="tab-schedule" class="tab-content hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold text-gray-900">时间节点</h3>
+                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition">
+                            查看原文档
+                        </button>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">项目开始时间</label>
+                                <input type="date" value="2026-02-01" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">项目总周期（天）</label>
+                                <input type="text" value="270" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">需求调研完成时间</label>
+                                <input type="date" value="2026-03-15" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">开发上线时间</label>
+                                <input type="date" value="2026-08-30" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">试运行开始时间</label>
+                                <input type="date" value="2026-09-01" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">初验时间</label>
+                                <input type="date" value="2026-10-15" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-yellow-50 border-yellow-300">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">终验时间</label>
+                                <input type="date" value="2026-11-30" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">运维期开始时间</label>
+                                <input type="date" value="2026-12-01" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: 交付物 -->
+                <div id="tab-deliverables" class="tab-content hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold text-gray-900">交付物清单</h3>
+                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition">
+                            查看原文档
+                        </button>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- 需求调研阶段 -->
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-3">需求调研阶段</h4>
+                            <textarea rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">1. 需求调研报告
+2. 业务流程分析文档
+3. 系统需求规格说明书
+4. 用户需求确认书</textarea>
+                        </div>
+
+                        <!-- 设计阶段 -->
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-3">设计阶段</h4>
+                            <textarea rows="5" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">1. 系统总体设计方案
+2. 技术架构设计文档
+3. 数据库设计文档
+4. 接口设计文档
+5. UI/UX设计稿</textarea>
+                        </div>
+
+                        <!-- 开发阶段 -->
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-3">开发阶段</h4>
+                            <textarea rows="6" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">1. 系统源代码（含注释）
+2. 代码编译部署说明
+3. 单元测试报告
+4. 集成测试报告
+5. 系统测试报告
+6. 性能测试报告</textarea>
+                        </div>
+
+                        <!-- 验收阶段 -->
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-3">验收阶段</h4>
+                            <textarea rows="5" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">1. 系统用户手册
+2. 系统运维手册
+3. 系统培训材料
+4. 初验报告
+5. 终验报告</textarea>
+                        </div>
+
+                        <!-- 运维阶段 -->
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-3">运维阶段</h4>
+                            <textarea rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">1. 月度运维报告
+2. 系统巡检记录
+3. 故障处理记录
+4. 系统优化建议</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 4: 人员要求 -->
+                <div id="tab-personnel" class="tab-content hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold text-gray-900">人员要求</h3>
+                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition">
+                            查看原文档
+                        </button>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- 项目经理资质 -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">项目经理资质要求</label>
+                            <textarea rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-yellow-50 border-yellow-300">1. 持有高级项目管理师证书
+2. 具有5年以上大型信息化项目管理经验
+3. 至少主持过3个千万级以上项目
+4. 熟悉智慧园区或类似行业项目</textarea>
+                        </div>
+
+                        <!-- 项目经理业绩要求 -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">项目经理业绩要求</label>
+                            <textarea rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">1. 近3年内完成至少2个同类项目
+2. 项目验收合格率100%
+3. 客户满意度不低于90分</textarea>
+                        </div>
+
+                        <!-- 驻场人员要求 -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">驻场人员要求</label>
+                            <textarea rows="5" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">1. 项目经理：1人，全程驻场
+2. 技术负责人：1人，全程驻场
+3. 开发人员：不少于5人，开发阶段驻场
+4. 测试人员：不少于2人，测试阶段驻场
+5. 实施人员：不少于3人，实施阶段驻场</textarea>
+                        </div>
+
+                        <!-- 运维人员要求 -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">运维人员要求</label>
+                            <textarea rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">1. 运维工程师：不少于2人
+2. 7×24小时响应机制
+3. 现场响应时间不超过2小时
+4. 远程响应时间不超过30分钟</textarea>
+                        </div>
+
+                        <!-- 证明材料 -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">需提供的证明材料</label>
+                            <textarea rows="5" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">1. 项目经理资质证书复印件
+2. 项目经理业绩证明材料
+3. 拟投入人员名单及简历
+4. 人员社保证明
+5. 人员劳动合同</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 5: 分包政策 -->
+                <div id="tab-subcontract" class="tab-content hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold text-gray-900">分包政策</h3>
+                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition">
+                            查看原文档
+                        </button>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">分包政策说明</label>
+                            <textarea rows="15" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">一、分包原则
+
+1. 本项目允许部分非核心业务分包，但需经甲方书面同意
+2. 分包比例不得超过合同总金额的30%
+3. 核心业务（系统架构设计、核心功能开发）不得分包
+
+二、分包范围
+
+允许分包的内容：
+1. 硬件设备采购与安装
+2. 网络布线工程
+3. 第三方系统集成
+4. 部分非核心功能模块开发
+
+禁止分包的内容：
+1. 系统总体设计
+2. 核心业务功能开发
+3. 数据库设计与开发
+4. 系统安全设计
+
+三、分包管理要求
+
+1. 乙方对分包商的工作质量承担全部责任
+2. 分包商必须具备相应资质
+3. 分包合同需报甲方备案
+4. 分包商人员需接受甲方管理
+
+四、违约责任
+
+1. 未经同意擅自分包，甲方有权解除合同
+2. 分包工作出现质量问题，由乙方承担全部责任
+3. 因分包导致项目延期，乙方承担违约责任</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部操作按钮 -->
+        <div class="mt-6 flex justify-between">
+            <a href="project-qc-document-upload.html" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition">
+                返回上一步
+            </a>
+            <div class="flex space-x-4">
+                <button class="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition">
+                    保存草稿
+                </button>
+                <a href="project-qc-progress-tracking.html" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 shadow transition inline-block">
+                    确认并入库
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // 导航栏交互逻辑
+    document.addEventListener('DOMContentLoaded', function() {
+        // 通知面板切换
+        const notificationBtn = document.getElementById('notificationBtn');
+        const notificationPanel = document.getElementById('notificationPanel');
+        
+        if (notificationBtn && notificationPanel) {
+            notificationBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                notificationPanel.classList.toggle('hidden');
+                const userMenuPanel = document.getElementById('userMenuPanel');
+                if (userMenuPanel) {
+                    userMenuPanel.classList.add('hidden');
+                }
+            });
+        }
+
+        // 用户菜单切换
+        const userMenuBtn = document.getElementById('userMenuBtn');
+        const userMenuPanel = document.getElementById('userMenuPanel');
+        
+        if (userMenuBtn && userMenuPanel) {
+            userMenuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                userMenuPanel.classList.toggle('hidden');
+                if (notificationPanel) {
+                    notificationPanel.classList.add('hidden');
+                }
+            });
+        }
+
+        // 点击外部关闭所有下拉菜单
+        document.addEventListener('click', function() {
+            if (notificationPanel) {
+                notificationPanel.classList.add('hidden');
+            }
+            if (userMenuPanel) {
+                userMenuPanel.classList.add('hidden');
+            }
+        });
+
+        // Tab 切换逻辑
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetTab = this.getAttribute('data-tab');
+
+                // 移除所有 active 状态
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active', 'border-blue-500', 'text-blue-600');
+                    btn.classList.add('border-transparent', 'text-gray-500');
+                });
+
+                // 添加当前按钮的 active 状态
+                this.classList.add('active', 'border-blue-500', 'text-blue-600');
+                this.classList.remove('border-transparent', 'text-gray-500');
+
+                // 隐藏所有 tab 内容
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+
+                // 显示目标 tab 内容
+                const targetContent = document.getElementById('tab-' + targetTab);
+                if (targetContent) {
+                    targetContent.classList.remove('hidden');
+                }
+            });
+        });
+
+        // 项目选择器交互（可选）
+        const projectSelector = document.getElementById('projectSelector');
+        if (projectSelector) {
+            projectSelector.addEventListener('change', function() {
+                const projectId = this.value;
+                // 保存到localStorage
+                localStorage.setItem('currentProjectId', projectId);
+                console.log('选择的项目ID:', projectId);
+                // 刷新当前页面数据
+                loadProjectData(projectId);
+            });
+        }
+
+        // 页面加载时从localStorage读取项目ID
+        const savedProjectId = localStorage.getItem('currentProjectId');
+        if (savedProjectId && projectSelector) {
+            projectSelector.value = savedProjectId;
+            loadProjectData(savedProjectId);
+        }
+    });
+
+    /**
+     * 加载指定项目的数据
+     * @param {string} projectId - 项目ID
+     */
+    function loadProjectData(projectId) {
+        console.log('加载项目数据:', projectId);
+        // TODO: 这里应该调用API加载对应项目的数据
+        // 示例：fetch(`/api/projects/${projectId}/extraction-data`)
+        //   .then(response => response.json())
+        //   .then(data => {
+        //     // 更新页面数据
+        //   });
+    }
+    </script>
+</body>
+</html>

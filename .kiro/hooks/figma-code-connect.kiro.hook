@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "name": "Figma Component Code Connect",
+  "description": "检查 UI 组件是否应该连接到 Figma 设计",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": ["frontend/**/*.html", "frontend/**/*.js", "**/components/**/*"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "当新的组件文件被创建或更新时，询问用户是否想要确认代码是否已正确附加到同名的 Figma 组件。如果用户同意：首先对用户提供的最后一个 Figma URL 运行 get_code_connect_map 工具。如果响应为空，运行 add_code_connect_map 工具，否则告诉用户该组件已经映射了代码。如果用户拒绝：不运行任何额外的工具。"
+  },
+  "shortName": "figma-code-connect"
+}
