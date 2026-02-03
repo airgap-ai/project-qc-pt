@@ -882,11 +882,21 @@
     function openOriginalModal(category) {
         if (!originalModal) return;
         const preset = fieldPresets[category] || fieldPresets.payment;
-        modalTitle.textContent = preset.title;
-        editValue.textContent = preset.value;
-        editTextarea.value = preset.initial;
-        initialValue.textContent = preset.initial;
-        saveError.classList.add("hidden");
+        if (modalTitle) {
+            modalTitle.textContent = preset.title;
+        }
+        if (editValue) {
+            editValue.textContent = preset.value;
+        }
+        if (editTextarea) {
+            editTextarea.value = preset.initial;
+        }
+        if (initialValue) {
+            initialValue.textContent = preset.initial;
+        }
+        if (saveError) {
+            saveError.classList.add("hidden");
+        }
         originalModal.classList.remove("hidden");
         originalModal.setAttribute("aria-hidden", "false");
     }
@@ -897,15 +907,25 @@
         originalModal.setAttribute("aria-hidden", "true");
     }
 
-    document.querySelectorAll(".open-original").forEach(button => {
-        button.addEventListener("click", () => {
-            const targetTab = button.dataset.targetTab;
-            if (targetTab) {
-                activateTab(targetTab);
-            }
-            openOriginalModal(button.dataset.category);
+    function initOriginalModalHandlers() {
+        document.querySelectorAll(".open-original").forEach(button => {
+            button.addEventListener("click", (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                const targetTab = button.dataset.targetTab;
+                if (targetTab) {
+                    activateTab(targetTab);
+                }
+                openOriginalModal(button.dataset.category);
+            });
         });
-    });
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initOriginalModalHandlers);
+    } else {
+        initOriginalModalHandlers();
+    }
 
     if (modalClose) {
         modalClose.addEventListener("click", closeOriginalModal);
