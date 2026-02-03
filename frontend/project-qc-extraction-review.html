@@ -173,7 +173,7 @@
                                 <span class="font-medium">合同文件:</span> 35%
                             </p>
                         </div>
-                        <button class="ml-4 px-3 py-1 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="payment" data-field="payment.plan.secondRatio">
+                        <button class="ml-4 px-3 py-1 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="payment" data-field="payment.plan.secondRatio" data-target-tab="payment">
                             查看原文
                         </button>
                     </div>
@@ -192,7 +192,7 @@
                                 <span class="font-medium">合同文件:</span> 2026-10-15
                             </p>
                         </div>
-                        <button class="ml-4 px-3 py-1 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="schedule" data-field="schedule.acceptanceDate">
+                        <button class="ml-4 px-3 py-1 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="schedule" data-field="schedule.acceptanceDate" data-target-tab="schedule">
                             查看原文
                         </button>
                     </div>
@@ -211,10 +211,11 @@
                                 <span class="font-medium">合同文件:</span> 高级项目管理师
                             </p>
                         </div>
-                        <button class="ml-4 px-3 py-1 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="personnel" data-field="personnel.managerQualification">
+                        <button class="ml-4 px-3 py-1 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="personnel" data-field="personnel.managerQualification" data-target-tab="personnel">
                             查看原文
                         </button>
                     </div>
+                </div>
             </div>
         </div>
 
@@ -372,7 +373,7 @@
                 <div id="tab-payment" class="tab-content">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-semibold text-gray-900">付款计划</h3>
-                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="payment">
+                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="payment" data-target-tab="payment">
                             查看原文
                         </button>
                     </div>
@@ -472,7 +473,7 @@
                 <div id="tab-schedule" class="tab-content hidden">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-semibold text-gray-900">时间节点</h3>
-                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="schedule">
+                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="schedule" data-target-tab="schedule">
                             查看原文
                         </button>
                     </div>
@@ -528,7 +529,7 @@
                 <div id="tab-deliverables" class="tab-content hidden">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-semibold text-gray-900">交付物清单</h3>
-                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="deliverables">
+                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="deliverables" data-target-tab="deliverables">
                             查看原文
                         </button>
                     </div>
@@ -589,7 +590,7 @@
                 <div id="tab-personnel" class="tab-content hidden">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-semibold text-gray-900">人员要求</h3>
-                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="personnel">
+                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="personnel" data-target-tab="personnel">
                             查看原文
                         </button>
                     </div>
@@ -647,7 +648,7 @@
                 <div id="tab-subcontract" class="tab-content hidden">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-semibold text-gray-900">分包政策</h3>
-                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="subcontract">
+                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="subcontract" data-target-tab="subcontract">
                             查看原文
                         </button>
                     </div>
@@ -710,6 +711,37 @@
     </div>
 
     <script>
+    let tabButtons = [];
+    let tabContents = [];
+
+    function activateTab(targetTab) {
+        if (!targetTab) return;
+        if (!tabButtons.length) {
+            tabButtons = document.querySelectorAll('.tab-btn');
+            tabContents = document.querySelectorAll('.tab-content');
+        }
+
+        tabButtons.forEach(btn => {
+            btn.classList.remove('active', 'border-blue-500', 'text-blue-600');
+            btn.classList.add('border-transparent', 'text-gray-500');
+        });
+
+        tabContents.forEach(content => {
+            content.classList.add('hidden');
+        });
+
+        const targetButton = document.querySelector(`.tab-btn[data-tab="${targetTab}"]`);
+        if (targetButton) {
+            targetButton.classList.add('active', 'border-blue-500', 'text-blue-600');
+            targetButton.classList.remove('border-transparent', 'text-gray-500');
+        }
+
+        const targetContent = document.getElementById('tab-' + targetTab);
+        if (targetContent) {
+            targetContent.classList.remove('hidden');
+        }
+    }
+
     // 导航栏交互逻辑
     document.addEventListener('DOMContentLoaded', function() {
         // 通知面板切换
@@ -752,33 +784,13 @@
         });
 
         // Tab 切换逻辑
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
+        tabButtons = document.querySelectorAll('.tab-btn');
+        tabContents = document.querySelectorAll('.tab-content');
 
         tabButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const targetTab = this.getAttribute('data-tab');
-
-                // 移除所有 active 状态
-                tabButtons.forEach(btn => {
-                    btn.classList.remove('active', 'border-blue-500', 'text-blue-600');
-                    btn.classList.add('border-transparent', 'text-gray-500');
-                });
-
-                // 添加当前按钮的 active 状态
-                this.classList.add('active', 'border-blue-500', 'text-blue-600');
-                this.classList.remove('border-transparent', 'text-gray-500');
-
-                // 隐藏所有 tab 内容
-                tabContents.forEach(content => {
-                    content.classList.add('hidden');
-                });
-
-                // 显示目标 tab 内容
-                const targetContent = document.getElementById('tab-' + targetTab);
-                if (targetContent) {
-                    targetContent.classList.remove('hidden');
-                }
+                activateTab(targetTab);
             });
         });
 
@@ -858,6 +870,12 @@
             value: "分包比例：≤30%",
             initial: "分包比例：不超过合同总金额的30%",
             contractAvailable: true
+        },
+        "contract": {
+            title: "合同文件 · 高亮定位",
+            value: "合同原文高亮定位已就绪",
+            initial: "合同原文高亮定位已就绪",
+            contractAvailable: true
         }
     };
 
@@ -881,6 +899,10 @@
 
     document.querySelectorAll(".open-original").forEach(button => {
         button.addEventListener("click", () => {
+            const targetTab = button.dataset.targetTab;
+            if (targetTab) {
+                activateTab(targetTab);
+            }
             openOriginalModal(button.dataset.category);
         });
     });
