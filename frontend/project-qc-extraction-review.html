@@ -173,7 +173,7 @@
                                 <span class="font-medium">合同文件:</span> 35%
                             </p>
                         </div>
-                        <button class="ml-4 px-3 py-1 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition">
+                        <button class="ml-4 px-3 py-1 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="payment" data-field="payment.plan.secondRatio">
                             查看原文
                         </button>
                     </div>
@@ -192,7 +192,7 @@
                                 <span class="font-medium">合同文件:</span> 2026-10-15
                             </p>
                         </div>
-                        <button class="ml-4 px-3 py-1 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition">
+                        <button class="ml-4 px-3 py-1 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="schedule" data-field="schedule.acceptanceDate">
                             查看原文
                         </button>
                     </div>
@@ -211,9 +211,133 @@
                                 <span class="font-medium">合同文件:</span> 高级项目管理师
                             </p>
                         </div>
-                        <button class="ml-4 px-3 py-1 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition">
+                        <button class="ml-4 px-3 py-1 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="personnel" data-field="personnel.managerQualification">
                             查看原文
                         </button>
+                    </div>
+            </div>
+        </div>
+
+        <!-- 查看原文弹窗 -->
+        <div id="originalModal" class="fixed inset-0 z-[60] hidden">
+            <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+            <div class="relative mx-auto mt-16 w-[94%] max-w-6xl">
+                <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
+                    <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white">
+                        <div>
+                            <p class="text-xs text-slate-500">自动校验 · 原文高亮定位</p>
+                            <h3 class="text-lg font-semibold text-slate-900" id="modalTitle">付款计划 · 第二次付款比例</h3>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-slate-500">支持格式：PDF / Word（在线预览转 PDF）</span>
+                            <button id="modalClose" class="w-9 h-9 rounded-full border border-slate-200 text-slate-500 hover:text-slate-700 hover:bg-slate-100">
+                                ×
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-0">
+                        <div class="border-r border-slate-200">
+                            <div class="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs text-slate-500">立项文件</p>
+                                    <p class="text-sm font-semibold text-slate-900">立项报告（PDF）</p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 text-slate-600">PDF</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-emerald-50 text-emerald-700">高亮 2 段</span>
+                                </div>
+                            </div>
+                            <div class="p-4 space-y-3 text-sm text-slate-700">
+                                <div class="rounded-lg border border-emerald-200 bg-emerald-50/60 p-3">
+                                    <p class="text-xs text-emerald-700 mb-1">第 12 页 · 第 3 段</p>
+                                    <p class="font-medium text-slate-900">项目合同签订后 5 个工作日内支付合同总价的 20%。</p>
+                                </div>
+                                <div class="rounded-lg border border-emerald-200 bg-emerald-50/60 p-3">
+                                    <p class="text-xs text-emerald-700 mb-1">第 13 页 · 第 2 段</p>
+                                    <p>系统初验完成后支付合同总价的 <span class="font-semibold text-emerald-700">30%</span>，终验合格后支付 40%。</p>
+                                </div>
+                                <div class="rounded-lg border border-slate-200 bg-white p-3">
+                                    <p class="text-xs text-slate-500 mb-1">第 14 页 · 第 1 段</p>
+                                    <p>质保期满后支付合同总价的 10%。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-r border-slate-200">
+                            <div class="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs text-slate-500">招标文件</p>
+                                    <p class="text-sm font-semibold text-slate-900">招标文件（PDF）</p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 text-slate-600">PDF</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-amber-50 text-amber-700">高亮 1 段</span>
+                                </div>
+                            </div>
+                            <div class="p-4 space-y-3 text-sm text-slate-700">
+                                <div class="rounded-lg border border-amber-200 bg-amber-50/70 p-3">
+                                    <p class="text-xs text-amber-700 mb-1">第 18 页 · 第 4 段</p>
+                                    <p>初验合格后支付合同总价的 <span class="font-semibold text-amber-700">30%</span>。</p>
+                                </div>
+                                <div class="rounded-lg border border-slate-200 bg-white p-3">
+                                    <p class="text-xs text-slate-500 mb-1">第 18 页 · 第 5 段</p>
+                                    <p>终验合格后支付合同总价的 40%。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs text-slate-500">合同文件</p>
+                                    <p class="text-sm font-semibold text-slate-900">合同文本（PDF）</p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 text-slate-600">Word 转 PDF</span>
+                                    <span class="text-[11px] px-2 py-1 rounded-full bg-red-50 text-red-700">高亮 1 段</span>
+                                </div>
+                            </div>
+                            <div class="p-4 space-y-3 text-sm text-slate-700">
+                                <div class="rounded-lg border border-red-200 bg-red-50/70 p-3">
+                                    <p class="text-xs text-red-700 mb-1">第 6 页 · 第 2 段</p>
+                                    <p>系统初验完成后支付合同总价的 <span class="font-semibold text-red-700">35%</span>。</p>
+                                </div>
+                                <div class="rounded-lg border border-slate-200 bg-white p-3">
+                                    <p class="text-xs text-slate-500 mb-1">第 7 页 · 第 1 段</p>
+                                    <p>终验合格后支付合同总价的 35%。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-200 bg-white px-6 py-4">
+                        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div>
+                                    <p class="text-xs text-slate-500">统一编辑值（基于合同提取）</p>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-sm font-medium text-slate-900" id="editValue">第二次付款比例：35%</span>
+                                        <span class="text-[11px] text-slate-500" id="editMeta">修改人：李四 · 2026-02-03 09:12</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded-full" id="contractHint">合同字段缺失则不可保存</span>
+                                <button id="modalCancel" class="px-4 py-2 rounded-md border border-slate-300 text-slate-600 hover:bg-slate-50">取消</button>
+                                <button id="modalSave" class="px-4 py-2 rounded-md bg-slate-900 text-white hover:bg-slate-800">保存修改</button>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <label class="text-xs text-slate-500">编辑内容</label>
+                            <textarea id="editTextarea" class="mt-2 w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700" rows="3">第二次付款比例：35%（初验完成后支付）</textarea>
+                            <p class="mt-2 text-[11px] text-slate-500" id="requiredHint">付款计划/项目进度/交付成果/人员要求为必填，分包政策可为空。</p>
+                            <div class="mt-3 rounded-md border border-slate-200 bg-slate-50 px-3 py-2">
+                                <p class="text-[11px] text-slate-500">初始提取版本</p>
+                                <p class="text-xs text-slate-700" id="initialValue">第二次付款比例：35%（初验完成后支付）</p>
+                            </div>
+                            <p class="mt-2 text-[11px] text-rose-600 hidden" id="saveError">合同文件中缺少该字段原文，无法保存。</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -248,8 +372,8 @@
                 <div id="tab-payment" class="tab-content">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-semibold text-gray-900">付款计划</h3>
-                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition">
-                            查看原文档
+                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="payment">
+                            查看原文
                         </button>
                     </div>
 
@@ -348,8 +472,8 @@
                 <div id="tab-schedule" class="tab-content hidden">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-semibold text-gray-900">时间节点</h3>
-                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition">
-                            查看原文档
+                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="schedule">
+                            查看原文
                         </button>
                     </div>
 
@@ -404,8 +528,8 @@
                 <div id="tab-deliverables" class="tab-content hidden">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-semibold text-gray-900">交付物清单</h3>
-                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition">
-                            查看原文档
+                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="deliverables">
+                            查看原文
                         </button>
                     </div>
 
@@ -465,8 +589,8 @@
                 <div id="tab-personnel" class="tab-content hidden">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-semibold text-gray-900">人员要求</h3>
-                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition">
-                            查看原文档
+                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="personnel">
+                            查看原文
                         </button>
                     </div>
 
@@ -523,8 +647,8 @@
                 <div id="tab-subcontract" class="tab-content hidden">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-semibold text-gray-900">分包政策</h3>
-                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition">
-                            查看原文档
+                        <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition open-original" data-category="subcontract">
+                            查看原文
                         </button>
                     </div>
 
@@ -691,6 +815,129 @@
         //   .then(data => {
         //     // 更新页面数据
         //   });
+    }
+
+    const originalModal = document.getElementById("originalModal");
+    const modalClose = document.getElementById("modalClose");
+    const modalCancel = document.getElementById("modalCancel");
+    const modalSave = document.getElementById("modalSave");
+    const modalTitle = document.getElementById("modalTitle");
+    const editValue = document.getElementById("editValue");
+    const editMeta = document.getElementById("editMeta");
+    const editTextarea = document.getElementById("editTextarea");
+    const initialValue = document.getElementById("initialValue");
+    const saveError = document.getElementById("saveError");
+
+    const fieldPresets = {
+        "payment": {
+            title: "付款计划 · 第二次付款比例",
+            value: "第二次付款比例：35%",
+            initial: "第二次付款比例：35%（初验完成后支付）",
+            contractAvailable: true
+        },
+        "schedule": {
+            title: "时间节点 · 初验时间",
+            value: "初验时间：2026-10-15",
+            initial: "初验时间：2026-10-15（合同条款）",
+            contractAvailable: true
+        },
+        "deliverables": {
+            title: "交付成果 · 需求调研阶段",
+            value: "需求调研阶段交付物：4项",
+            initial: "需求调研阶段交付物：需求调研报告/业务流程分析/系统需求规格说明书/用户需求确认书",
+            contractAvailable: true
+        },
+        "personnel": {
+            title: "人员要求 · 项目经理资质",
+            value: "项目经理资质：高级项目管理师",
+            initial: "项目经理资质：高级项目管理师（合同）",
+            contractAvailable: true
+        },
+        "subcontract": {
+            title: "分包政策 · 分包比例",
+            value: "分包比例：≤30%",
+            initial: "分包比例：不超过合同总金额的30%",
+            contractAvailable: true
+        }
+    };
+
+    function openOriginalModal(category) {
+        if (!originalModal) return;
+        const preset = fieldPresets[category] || fieldPresets.payment;
+        modalTitle.textContent = preset.title;
+        editValue.textContent = preset.value;
+        editTextarea.value = preset.initial;
+        initialValue.textContent = preset.initial;
+        saveError.classList.add("hidden");
+        originalModal.classList.remove("hidden");
+        originalModal.setAttribute("aria-hidden", "false");
+    }
+
+    function closeOriginalModal() {
+        if (!originalModal) return;
+        originalModal.classList.add("hidden");
+        originalModal.setAttribute("aria-hidden", "true");
+    }
+
+    document.querySelectorAll(".open-original").forEach(button => {
+        button.addEventListener("click", () => {
+            openOriginalModal(button.dataset.category);
+        });
+    });
+
+    if (modalClose) {
+        modalClose.addEventListener("click", closeOriginalModal);
+    }
+    if (modalCancel) {
+        modalCancel.addEventListener("click", closeOriginalModal);
+    }
+    if (originalModal) {
+        originalModal.addEventListener("click", (event) => {
+            if (event.target === originalModal) {
+                closeOriginalModal();
+            }
+        });
+    }
+
+    if (modalSave) {
+        modalSave.addEventListener("click", () => {
+            const currentCategory = (modalTitle.textContent || "").split(" · ")[0];
+            const categoryMap = {
+                "付款计划": "payment",
+                "时间节点": "schedule",
+                "交付成果": "deliverables",
+                "人员要求": "personnel",
+                "分包政策": "subcontract"
+            };
+            const categoryKey = categoryMap[currentCategory] || "payment";
+            const preset = fieldPresets[categoryKey];
+            if (!preset.contractAvailable && categoryKey !== "subcontract") {
+                saveError.classList.remove("hidden");
+                return;
+            }
+            saveError.classList.add("hidden");
+            editValue.textContent = editTextarea.value.trim() || preset.value;
+            const outputMap = {
+                payment: "[data-field=\"payment.plan.secondRatio\"]",
+                schedule: "[data-field=\"schedule.acceptanceDate\"]",
+                deliverables: "#tab-deliverables textarea",
+                personnel: "#tab-personnel textarea",
+                subcontract: "#tab-subcontract textarea"
+            };
+            const outputSelector = outputMap[categoryKey];
+            if (outputSelector) {
+                const target = document.querySelector(outputSelector);
+                if (target) {
+                    if (target.tagName === "TEXTAREA" || target.tagName === "INPUT") {
+                        target.value = editTextarea.value.trim() || target.value;
+                    } else {
+                        target.textContent = editTextarea.value.trim() || target.textContent;
+                    }
+                }
+            }
+            editMeta.textContent = "修改人：李四 · 2026-02-03 09:12";
+            closeOriginalModal();
+        });
     }
     </script>
 </body>
